@@ -18,6 +18,7 @@ class JobSkill extends Model
     use Sorted;
 
     protected $table = 'job_skills';
+    protected $primaryKey = 'job_skill_id';    //add new
     public $timestamps = true;
     protected $guarded = ['id'];
     //protected $dateFormat = 'U';

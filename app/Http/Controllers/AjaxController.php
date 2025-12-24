@@ -201,7 +201,7 @@ class AjaxController extends Controller
 
         return response()->json($job_title);
 
-        return response()->json($skills);
+      //  return response()->json($skills);
     }
 
     public function filterCompanyName($q = null){

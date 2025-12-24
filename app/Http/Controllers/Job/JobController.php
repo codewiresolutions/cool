@@ -60,19 +60,184 @@ class JobController extends Controller
         $this->countries = DataArrayHelper::langCountriesArray();
     }
 
+//    public function jobsBySearch(Request $request)
+//    {
+//
+//        $country_ids = $request->query('country_id', array());
+//        if($country_ids == ["0"]){                              //if id = 0 then fetch all countries records//
+//            $country_ids = Null;
+//        }
+//        $search = $request->query('search', '');
+//        $job_titles = $request->query('job_title', array());
+//        $company_ids = $request->query('company_id', array());
+//        $industry_ids = $request->query('industry_id', array());
+//        $job_skill_ids = $request->query('job_skill_id', array());
+//        $functional_area_ids = $request->query('functional_area_id', array());
+//        $state_ids = $request->query('state_id', array());
+//        $city_ids = $request->query('city_id', array());
+//        $is_freelance = $request->query('is_freelance', array());
+//        $career_level_ids = $request->query('career_level_id', array());
+//        $job_type_ids = $request->query('job_type_id', array());
+//        $job_shift_ids = $request->query('job_shift_id', array());
+//        $gender_ids = $request->query('gender_id', array());
+//        $degree_level_ids = $request->query('degree_level_id', array());
+//        $major_subject_ids = $request->query('major_subject_id', array());
+//        $job_experience_ids = $request->query('job_experience_id', array());
+//        $salary_from = $request->query('salary_from', '');
+//        $salary_to = $request->query('salary_to', '');
+//        $salary_currency = $request->query('salary_currency', '');
+//        $is_featured = $request->query('is_featured', 2);
+//        $order_by = $request->query('order_by', 'id');
+//        $limit = 15;
+//        
+//        $jobs = $this->fetchJobs($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, $order_by, $limit);
+//
+//        /*         * ************************************************** */
+//
+//        $jobTitlesArray = $this->fetchIdsArray($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, 'jobs.title');
+//
+//        /*         * ************************************************* */
+//
+//        $jobIdsArray = $this->fetchIdsArray($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, 'jobs.id');
+//
+//        /*         * ************************************************** */
+//
+//        $skillIdsArray = $this->fetchSkillIdsArray($jobIdsArray);
+//
+//        /*         * ************************************************** */
+//
+//        $countryIdsArray = $this->fetchIdsArray($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, 'jobs.country_id');
+//        
+//        /*         * ************************************************** */
+//
+//        $stateIdsArray = $this->fetchIdsArray($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, 'jobs.state_id');
+//
+//        /*         * ************************************************** */
+//
+//        $cityIdsArray = $this->fetchIdsArray($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, 'jobs.city_id');
+//
+//        /*         * ************************************************** */
+//
+//        $companyIdsArray = $this->fetchIdsArray($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, 'jobs.company_id');
+//
+//        /*         * ************************************************** */
+//
+//        $industryIdsArray = $this->fetchIndustryIdsArray($companyIdsArray);
+//
+//        /*         * ************************************************** */
+//
+//
+//        /*         * ************************************************** */
+//
+//        $functionalAreaIdsArray = $this->fetchIdsArray($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, 'jobs.functional_area_id');
+//
+//        /*         * ************************************************** */
+//
+//        $careerLevelIdsArray = $this->fetchIdsArray($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, 'jobs.career_level_id');
+//
+//        /*         * ************************************************** */
+//
+//        $jobTypeIdsArray = $this->fetchIdsArray($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, 'jobs.job_type_id');
+//
+//        /*         * ************************************************** */
+//
+//        $jobShiftIdsArray = $this->fetchIdsArray($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, 'jobs.job_shift_id');
+//
+//        /*         * ************************************************** */
+//
+//        $genderIdsArray = $this->fetchIdsArray($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, 'jobs.gender_id');
+//
+//        /*         * ************************************************** */
+//
+//        $degreeLevelIdsArray = $this->fetchIdsArray($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, 'jobs.degree_level_id');
+//        
+//        /*         * ************************************************** */
+//
+//        $majorSubjectsIdsArrary = $this->fetchIdsArray($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, 'jobs.major_subject_id');
+//        // return $majorSubjectsIdsArrary;
+//        /*         * ************************************************** */
+//
+//        $jobExperienceIdsArray = $this->fetchIdsArray($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, 'jobs.job_experience_id');
+//
+//        /*         * ************************************************** */
+//
+//        $seoArray = $this->getSEO($functional_area_ids, $country_ids, $state_ids, $city_ids, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids);
+//
+//        /*         * ************************************************** */
+//
+//        $currencies = DataArrayHelper::currenciesArray();
+//
+//        /*         * ************************************************** */
+//        $data = array();
+//        $data['countries'] = \App\Country::select('country_id','country')->lang()->active()->get();
+//        $data['states'] = \App\State::select('state_id','state')->lang()->active()->get();
+//        $data['cities'] = \App\City::select('city_id','city')->lang()->active()->get();
+//        $data['functional_areas'] = \App\FunctionalArea::select('functional_area_id','functional_area')->lang()->active()->get();
+//        $data['companies'] = \App\Company::select('id','name')->active()->get();
+//        $data['job_experience'] = \App\JobExperience::select('job_experience_id','job_experience')->orderBy('sort_order','DESC')->lang()->active()->get();
+//        $data['job_types'] = \App\JobType::select('job_type_id','job_type')->lang()->active()->get();
+//        $data['job_shifts'] = \App\JobShift::select('job_shift_id','job_shift')->lang()->active()->get();
+//        $data['job_careers'] = \App\CareerLevel::select('career_level_id','career_level')->lang()->active()->get();
+//        $data['job_degree_levels'] = \App\DegreeLevel::select('degree_level_id','degree_level')->lang()->active()->get();
+//        $data['gender'] = \App\Gender::select('gender_id','gender')->lang()->active()->get();
+//        $data['industries'] = \App\Industry::select('id','industry')->lang()->active()->get();
+//        $data['job_skill'] = \App\JobSkill::select('job_skill_id','job_skill')->lang()->active()->orderBy('job_skill', 'ASC')->get();
+//
+//
+//        $data['currencies'] = DataArrayHelper::currenciesArray();
+//        // return $data['currencies'];
+//
+//
+//        $seo = Seo::where('seo.page_title', 'like', 'jobs')->first();
+//        return view('job.list')
+//                        ->with('functionalAreas', $this->functionalAreas)
+//                        ->with('countries', $this->countries)
+//                        ->with('currencies', array_unique($currencies))
+//                        ->with('jobs', $jobs)
+//                        ->with('jobTitlesArray', $jobTitlesArray)
+//                        ->with('skillIdsArray', $skillIdsArray)
+//                        ->with('countryIdsArray', $countryIdsArray)
+//                        ->with('stateIdsArray', $stateIdsArray)
+//                        ->with('cityIdsArray', $cityIdsArray)
+//                        ->with('companyIdsArray', $companyIdsArray)
+//                        ->with('industryIdsArray', $industryIdsArray)
+//                        ->with('functionalAreaIdsArray', $functionalAreaIdsArray)
+//                        ->with('careerLevelIdsArray', $careerLevelIdsArray)
+//                        ->with('jobTypeIdsArray', $jobTypeIdsArray)
+//                        ->with('jobShiftIdsArray', $jobShiftIdsArray)
+//                        ->with('genderIdsArray', $genderIdsArray)
+//                        ->with('degreeLevelIdsArray', $degreeLevelIdsArray)
+//                        ->with('majorSubjectsIdsArrary', $majorSubjectsIdsArrary)
+//                        ->with('jobExperienceIdsArray', $jobExperienceIdsArray)
+//                        ->with('data',$data)
+//                        ->with('seo', $seo);
+//    }
+
+
     public function jobsBySearch(Request $request)
     {
+
+        $search = $request->query('search', '');
+        $job_titles = (array) $request->query('job_title', array());
+        $company_ids = (array) $request->query('company_id', array());
+        $industry_ids = (array) $request->query('industry_id', array());
+        $job_skill_ids = (array) $request->query('job_skill_id', array());
+
+        if (!empty($search)) {
+            $skillIds = \App\JobSkill::where('job_skill', 'like', $search . '%')
+                ->pluck('job_skill_id')
+                ->toArray();
+            if (!empty($skillIds)) {
+                $job_skill_ids = array_unique(array_merge($job_skill_ids, $skillIds));
+            }
+        }
+
+        $functional_area_ids = (array) $request->query('functional_area_id', array());
 
         $country_ids = $request->query('country_id', array());
         if($country_ids == ["0"]){                              //if id = 0 then fetch all countries records//
             $country_ids = Null;
         }
-        $search = $request->query('search', '');
-        $job_titles = $request->query('job_title', array());
-        $company_ids = $request->query('company_id', array());
-        $industry_ids = $request->query('industry_id', array());
-        $job_skill_ids = $request->query('job_skill_id', array());
-        $functional_area_ids = $request->query('functional_area_id', array());
         $state_ids = $request->query('state_id', array());
         $city_ids = $request->query('city_id', array());
         $is_freelance = $request->query('is_freelance', array());
@@ -89,7 +254,7 @@ class JobController extends Controller
         $is_featured = $request->query('is_featured', 2);
         $order_by = $request->query('order_by', 'id');
         $limit = 15;
-        
+
         $jobs = $this->fetchJobs($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, $order_by, $limit);
 
         /*         * ************************************************** */
@@ -107,7 +272,7 @@ class JobController extends Controller
         /*         * ************************************************** */
 
         $countryIdsArray = $this->fetchIdsArray($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, 'jobs.country_id');
-        
+
         /*         * ************************************************** */
 
         $stateIdsArray = $this->fetchIdsArray($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, 'jobs.state_id');
@@ -150,7 +315,7 @@ class JobController extends Controller
         /*         * ************************************************** */
 
         $degreeLevelIdsArray = $this->fetchIdsArray($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, 'jobs.degree_level_id');
-        
+
         /*         * ************************************************** */
 
         $majorSubjectsIdsArrary = $this->fetchIdsArray($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $major_subject_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, 'jobs.major_subject_id');
@@ -190,27 +355,27 @@ class JobController extends Controller
 
         $seo = Seo::where('seo.page_title', 'like', 'jobs')->first();
         return view('job.list')
-                        ->with('functionalAreas', $this->functionalAreas)
-                        ->with('countries', $this->countries)
-                        ->with('currencies', array_unique($currencies))
-                        ->with('jobs', $jobs)
-                        ->with('jobTitlesArray', $jobTitlesArray)
-                        ->with('skillIdsArray', $skillIdsArray)
-                        ->with('countryIdsArray', $countryIdsArray)
-                        ->with('stateIdsArray', $stateIdsArray)
-                        ->with('cityIdsArray', $cityIdsArray)
-                        ->with('companyIdsArray', $companyIdsArray)
-                        ->with('industryIdsArray', $industryIdsArray)
-                        ->with('functionalAreaIdsArray', $functionalAreaIdsArray)
-                        ->with('careerLevelIdsArray', $careerLevelIdsArray)
-                        ->with('jobTypeIdsArray', $jobTypeIdsArray)
-                        ->with('jobShiftIdsArray', $jobShiftIdsArray)
-                        ->with('genderIdsArray', $genderIdsArray)
-                        ->with('degreeLevelIdsArray', $degreeLevelIdsArray)
-                        ->with('majorSubjectsIdsArrary', $majorSubjectsIdsArrary)
-                        ->with('jobExperienceIdsArray', $jobExperienceIdsArray)
-                        ->with('data',$data)
-                        ->with('seo', $seo);
+            ->with('functionalAreas', $this->functionalAreas)
+            ->with('countries', $this->countries)
+            ->with('currencies', array_unique($currencies))
+            ->with('jobs', $jobs)
+            ->with('jobTitlesArray', $jobTitlesArray)
+            ->with('skillIdsArray', $skillIdsArray)
+            ->with('countryIdsArray', $countryIdsArray)
+            ->with('stateIdsArray', $stateIdsArray)
+            ->with('cityIdsArray', $cityIdsArray)
+            ->with('companyIdsArray', $companyIdsArray)
+            ->with('industryIdsArray', $industryIdsArray)
+            ->with('functionalAreaIdsArray', $functionalAreaIdsArray)
+            ->with('careerLevelIdsArray', $careerLevelIdsArray)
+            ->with('jobTypeIdsArray', $jobTypeIdsArray)
+            ->with('jobShiftIdsArray', $jobShiftIdsArray)
+            ->with('genderIdsArray', $genderIdsArray)
+            ->with('degreeLevelIdsArray', $degreeLevelIdsArray)
+            ->with('majorSubjectsIdsArrary', $majorSubjectsIdsArrary)
+            ->with('jobExperienceIdsArray', $jobExperienceIdsArray)
+            ->with('data',$data)
+            ->with('seo', $seo);
     }
 
     public function jobDetail(Request $request, $job_slug)
