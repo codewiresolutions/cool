@@ -19,3 +19,5 @@ Route::get('filter-user-name/{q?}','AjaxController@filterUserName')->name('filte
 Route::get('filter-functional/{q?}','AjaxController@filterFunctionalArea')->name('filter.functional');
 Route::post('filter-default-subject-dropdown-job', 'AjaxController@filterDefaultSubjectJob')->name('filter.default.subject.dropdown.job');
 Route::post('filter-default-subject-dropdown-job-profile', 'AjaxController@filterDefaultSubjectJobProfile')->name('filter.default.subject.dropdown.job.profile');
+
+Route::get('job-title-filter/{q?}','AjaxController@JobTitlefilter')->name('job.title.filter.');

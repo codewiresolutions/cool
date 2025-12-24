@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\JobSkill;
+use App\JobTitle;
 use DB;
 use Input;
 use Form;
@@ -203,6 +204,27 @@ class AjaxController extends Controller
 
       //  return response()->json($skills);
     }
+    // ... existing code ...
+    public function JobTitlefilter(Request $request, $q = null){
+        // If $q is not in the URL segments, check the query string
+        $q = $q ?: $request->query('q');
+
+        if ($q != null) {
+            $job_title_filter = Job::where('title', 'LIKE', '%' . $q . '%')
+                ->distinct('title')
+                ->limit(20)
+                ->get(['title']);
+        } else {
+            // If you want to pull from the Jobs table, ensure the column name is correct (often 'title')
+            // For consistency with the autocomplete, let's stick to JobTitle model or fix column name
+            $job_title_filter = Job::distinct('title')
+                ->limit(20)
+                ->get(['title']);
+        }
+
+        return response()->json($job_title_filter);
+    }
+
 
     public function filterCompanyName($q = null){
         $company = new Company();

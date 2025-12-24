@@ -219,6 +219,10 @@ class JobController extends Controller
 
         $search = $request->query('search', '');
         $job_titles = (array) $request->query('job_title', array());
+        $job_title_filter = $request->query('job_title_filter', '');
+        if (!empty($job_title_filter)) {
+            $job_titles[] = $job_title_filter;
+        }
         $company_ids = (array) $request->query('company_id', array());
         $industry_ids = (array) $request->query('industry_id', array());
         $job_skill_ids = (array) $request->query('job_skill_id', array());

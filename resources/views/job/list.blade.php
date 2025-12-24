@@ -13,29 +13,34 @@
                 <p class="header_description_under_head">Build Your Dream Job</p>
             </div>
             <div class="col-md-9 col-sm-9">
-                <form action="{{route('job.list')}}" method="get">
+                <form action="{{route('job.list')}}" method="get" id="search-job-form">
                     <div class="searchform row custom_top_margin_second_header">
                         <div class="col-lg-4 pl-lg-0">
                             <input type="text" name="search" value="{{Request::get('search', '')}}" class="form-control find_job typeahead typeahead_job" placeholder="{{__('Enter Skills, job title or Location')}}" id="job_page_typehead" />
                         </div>
-                        <div class="col-lg-3 pl-lg-0">
-                        <select name="country_id[]" class="form-control" style="background-color: #0096ff">
-                            <option value="">Select Country</option>
-                            @php
-                                $countries = App\Country::whereIn('country_id', $countryIdsArray)
-                                    ->lang()
-                                    ->active()
-                                    ->orderBy('country') // Order by the 'country' column
-                                    ->get();
-                            @endphp
-                            @foreach ($countries as $country)
-                                @php
-                                      $selected = (in_array($country->country_id, Request::get('country_id', array()))) ? 'selected' : '';
-                                @endphp
-                                <option value="{{ $country->country_id  }}" {{ $selected }}>{{ $country->country  }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+
+                        <div class="col-lg-2 pl-lg-0">
+                            <input type="text" name="job_title_filter" id="job_title_filter" value="{{Request::get('job_title_filter', '')}}" class="form-control" placeholder="{{__('Job Title')}}" autocomplete="off" />
+                            <div id="job_title_list" style="position: absolute; z-index: 999; width: 100%; background: #fff; border: 1px solid #ccc; display: none;"></div>
+                        </div>
+{{--                        <div class="col-lg-3 pl-lg-0">--}}
+{{--                        <select name="country_id[]" class="form-control" style="background-color: #0096ff">--}}
+{{--                            <option value="">Select Country</option>--}}
+{{--                            @php--}}
+{{--                                $countries = App\Country::whereIn('country_id', $countryIdsArray)--}}
+{{--                                    ->lang()--}}
+{{--                                    ->active()--}}
+{{--                                    ->orderBy('country') // Order by the 'country' column--}}
+{{--                                    ->get();--}}
+{{--                            @endphp--}}
+{{--                            @foreach ($countries as $country)--}}
+{{--                                @php--}}
+{{--                                      $selected = (in_array($country->country_id, Request::get('country_id', array()))) ? 'selected' : '';--}}
+{{--                                @endphp--}}
+{{--                                <option value="{{ $country->country_id  }}" {{ $selected }}>{{ $country->country  }}</option>--}}
+{{--                            @endforeach--}}
+{{--                        </select>--}}
+{{--                    </div>--}}
                     <div class="col-lg-2 pl-lg-0">
                         <select name="job_experience_id[]" class="form-control find_job" style="background-color: #0096ff">
                             <option value="">Experience</option>
@@ -428,6 +433,51 @@
 @endpush
 @push('scripts')
 <script>
+
+    $(document).ready(function() {
+        $('#job_title_filter').on('keyup click', function() {
+            var query = $(this).val();
+            $.ajax({
+                url: "{{ route('job.title.filter.') }}",
+                type: "GET",
+                data: {'q': query},
+                success: function(data) {
+                    $('#job_title_list').empty();
+                    if (data.length > 0) {
+                        var html = '<ul class="list-group" style="display: block; position: relative; z-index: 999;">';
+                        $.each(data, function(index, item) {
+                            html += '<li class="list-group-item job-title-item" style="cursor:pointer">' + item.title + '</li>';
+                        });
+                        html += '</ul>';
+                        $('#job_title_list').html(html).show();
+                    } else {
+                        $('#job_title_list').hide();
+                    }
+                }
+            });
+        });
+
+        $(document).on('click', '.job-title-item', function() {
+            $('#job_title_filter').val($(this).text());
+            $('#job_title_list').hide();
+            $('#search-job-form').submit(); // Automatically search when a title is clicked
+        });
+
+        $(document).click(function(e) {
+            if (!$(e.target).closest('#job_title_filter, #job_title_list').length) {
+                $('#job_title_list').hide();
+            }
+        });
+    });
+
+
+
+
+
+
+
+
+
 $('.btn-job-alert').on('click', function() {
     @if(Auth::user())
     $('#show_alert').modal('show');
