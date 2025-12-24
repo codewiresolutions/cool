@@ -1,0 +1,91 @@
+<div class="pageTitle">
+    
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-md-3 col-sm-3">
+                <h1 class="page-heading">{{$page_title}}</h1>
+            </div>
+            @if(@$page_title == 'Dashboard')
+                <div class="col-md-9 col-sm-9">
+                @if(Auth::guard('company')->check())
+                <form action="{{route('job.seeker.list')}}" method="get">
+                    <div class="searchform row custom_top_margin_second_header">
+                        <div class="col-lg-9">
+                            <input type="text" name="search" value="{{Request::get('search', '')}}" class="form-control functional_find" placeholder="{{__('Search Role...')}}" />
+                        </div>
+                        <div class="col-lg-3">
+                            <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i> {{__('Search')}}</button>
+                        </div>
+                    </div>
+                </form>
+            @endif
+            @elseif(@$page_title == 'Job Seekers')
+            <div class="col-md-9 col-sm-9">
+                @if(Auth::guard('company')->check())
+                <form action="{{route('job.seeker.list')}}" method="get">
+                    <div class="searchform row custom_top_margin_second_header">
+                        <div class="col-lg-4">
+                            <input type="text" name="search" value="{{Request::get('search', '')}}" class="form-control functional_find" placeholder="{{__('Search Role...')}}" />
+                        </div>
+                        <div class="col-lg-3 pl-lg-0">
+                        <select name="country_id[]" class="form-control" style="background-color: #0096ff; color:#FFF">
+                            <option value="">Select Country</option>
+                            @php
+                                $countries = App\Country::whereIn('country_id', $countryIdsArray)
+                                    ->lang()
+                                    ->active()
+                                    ->orderBy('country') // Order by the 'country' column
+                                    ->get();
+                            @endphp
+                            @foreach ($countries as $country)
+                                @php
+                                      $selected = (in_array($country->country_id, Request::get('country_id', array()))) ? 'selected' : '';
+                                @endphp
+                                <option value="{{ $country->country_id  }}" {{ $selected }}>{{ $country->country  }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-lg-2 pl-lg-0">
+                        <select name="job_experience_id[]" class="form-control find_job" style="background-color: #0096ff; color:#FFF">
+                            <option value="">Experience</option>
+                            @php
+                                $jobExperiences = App\JobExperience::whereIn('job_experience_id', $jobExperienceIdsArray)
+                                    ->lang()
+                                    ->active()
+                                    ->orderBy('job_experience') // Order by the 'job_experience' column
+                                    ->get();
+
+                            @endphp
+                            @foreach ($jobExperiences as $jobExperience)
+                            @php
+                                $selected = (in_array($jobExperience->job_experience_id, Request::get('job_experience_id', array()))) ? 'selected' : '';
+                            @endphp
+                                <option value="{{ $jobExperience->job_experience_id  }}" {{ $selected }}>{{ $jobExperience->job_experience  }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                        <div class="col-lg-3">
+                            <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i> {{__('Search')}}</button>
+                        </div>
+                    </div>
+                </form>
+                @else
+                <form action="{{route('company.listing')}}" method="get">
+                    <div class="searchform row custom_top_margin_second_header">
+                        <div class="col-lg-9">
+                            <input type="text" name="search" value="{{Request::get('search', '')}}" class="form-control typeahead typeahead_company" placeholder="{{__('Enter Skills, job title or Location')}}" />
+                        </div>
+
+                        <div class="col-lg-3">
+                            <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i> {{__('Search Jobs')}}</button>
+                        </div>
+                    </div>
+                </form>
+                @endif
+            </div>
+            @endif
+        </div>
+    </div>
+    
+</div>

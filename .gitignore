@@ -1,0 +1,43 @@
+# Laravel defaults
+/vendor
+/node_modules
+/public/storage
+/storage/*.key
+.env
+.env.*
+Homestead.yaml
+Homestead.json
+/.idea
+/.vscode
+/.phpunit.result.cache
+.phpunit.result.cache
+/.DS_Store
+
+# Laravel Telescope
+storage/telescope
+
+# Laravel Ignition
+storage/ignition
+
+# OS/System files
+Thumbs.db
+.DS_Store
+
+# Composer and NPM logs
+npm-debug.log
+yarn-error.log
+composer.lock
+
+# Cache and compiled files
+/bootstrap/cache/*
+!bootstrap/cache/.gitignore
+/storage/app/public/*
+!/storage/app/public/.gitignore
+/storage/framework/*
+!/storage/framework/.gitignore
+/storage/logs/*
+!/storage/logs/.gitignore
+
+# Misc
+*.sqlite
+*.json

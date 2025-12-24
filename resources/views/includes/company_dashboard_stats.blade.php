@@ -1,0 +1,25 @@
+<ul class="row profilestat">
+    <li class="col-md-4 col-6">
+        <div class="inbox"><i class="fa fa-clock-o" aria-hidden="true"></i>
+            <h6><a href="{{route('posted.jobs')}}">{{Auth::guard('company')->user()->company->countOpenJobs()}}</a></h6>
+            <strong>{{__('Open Jobs')}}</strong></div>
+    </li>
+    <li class="col-md-4 col-6">
+        <div class="inbox"><i class="fa fa-user-o" aria-hidden="true"></i>
+            <h6>
+                <a href="{{route('company.followers')}}">{{Auth::guard('company')->user()->company->countFollowers()}}</a>
+            </h6>
+            <strong>{{__('Followers')}}</strong></div>
+    </li>
+    <li class="col-md-4 col-6">
+        <div class="inbox"><i class="fa fa-download" aria-hidden="true"></i>
+            <!-- <a href="#"></a> -->
+            <h6>{{ Auth::guard('company')->user()->company->availed_cvs_quota ?? 0 }}</h6>
+            <strong>{{__('Resumes Viewed')}}</strong></div>
+    </li>
+    {{-- <li class="col-md-4 col-6">
+        <div class="inbox"> <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <h6><a href="{{route('company.messages')}}">{{Auth::guard('company')->user()->company->countCompanyMessages()}}</a></h6>
+            <strong>{{__('Messages')}}</strong> </div>
+    </li> --}}
+</ul>
