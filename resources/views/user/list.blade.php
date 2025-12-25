@@ -15,7 +15,8 @@
 
         <form action="{{route('job.seeker.list')}}" method="get" id="search-applicant-form">
             <!-- Search Result and sidebar start -->
-            <div class="row"> @include('includes.job_seeker_list_side_bar')
+            <div class="row">
+                @include('includes.job_seeker_list_side_bar')
                 <div class="col-lg-6">
                     <!-- Search List -->
                     <ul class="searchList">

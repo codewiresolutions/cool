@@ -113,20 +113,78 @@ trait FetchJobSeekers
         return array_unique($array);
     }
 
+//    public function createQuery($query, $search = '', $industry_ids = array(), $functional_area_ids = array(), $country_ids = array(), $state_ids = array(), $city_ids = array(), $job_skill_ids = array(), $career_level_ids = array(), $gender_ids = array(), $job_experience_ids = array(), $current_salary = 0, $expected_salary = 0, $salary_currency = '')
+//    {
+//        $query->where('users.is_active', 1);
+//        if ($search != '') {
+//            // $query = $query->whereRaw("MATCH (`search`) AGAINST ('$search*' IN BOOLEAN MODE)");
+//            // $query = $query->where('first_name','LIKE','%'.$search);
+//            // $query = $query->orWhere('last_name','LIKE','%'.$search.'%');
+//            // $query = $query->whereRaw("CONCAT(first_name,' ',last_name) LIKE '%".$search."%' ");
+//            $query->whereHas('functionalArea', function ($query) use ($search) {
+//                $query->where('functional_area', 'LIKE', '%'.$search.'%');
+//            });
+//        }
+//        if (isset($industry_ids[0])) {
+//            
+//            $query->whereIn('users.industry_id', $industry_ids);
+//        }
+//        if (isset($functional_area_ids[0])) {
+//            $query->whereIn('users.functional_area_id', $functional_area_ids);
+//        }
+//        if (isset($country_ids[0])) {
+//            $query->whereIn('users.country_id', $country_ids);
+//        }
+//        if (isset($state_ids[0])) {
+//            $query->whereIn('users.state_id', $state_ids);
+//        }
+//        if (isset($city_ids[0])) {
+//            $query->whereIn('users.city_id', $city_ids);
+//        }
+//        if (isset($job_skill_ids[0])) {
+//            $query ->whereHas('profileSkills', function($query) use ($job_skill_ids) {
+//                $query->whereIn('job_skill_id', $job_skill_ids);
+//         });
+//        }
+//        if (isset($career_level_ids[0])) {
+//            $query->whereIn('users.career_level_id', $career_level_ids);
+//        }
+//        if (isset($gender_ids[0])) {
+//            $query->whereIn('users.gender_id', $gender_ids);
+//        }
+//        if (isset($job_experience_ids[0])) {
+//            $query->whereIn('users.job_experience_id', $job_experience_ids);
+//        }
+//        if ((int) $current_salary > 0) {
+//            $query->where('users.current_salary', '>=', $current_salary);
+//        }
+//        if ((int) $expected_salary > 0) {
+//            $query = $query->whereRaw("(`users`.`expected_salary` - $expected_salary) >= 0");
+//            //$query->where('jobs.salary_to', '<=', $salary_to);
+//        }
+//        if (!empty(trim($salary_currency))) {
+//            $query->where('users.salary_currency', 'like', $salary_currency);
+//        }
+//
+//        // $query->whereIn('job_skill_id', AnotherModel::select('id')->get());
+//        // echo("<script>console.log('PHP: " . json_encode($query) . "');</script>");
+//        return $query;
+//    }
+
+
     public function createQuery($query, $search = '', $industry_ids = array(), $functional_area_ids = array(), $country_ids = array(), $state_ids = array(), $city_ids = array(), $job_skill_ids = array(), $career_level_ids = array(), $gender_ids = array(), $job_experience_ids = array(), $current_salary = 0, $expected_salary = 0, $salary_currency = '')
     {
         $query->where('users.is_active', 1);
         if ($search != '') {
-            // $query = $query->whereRaw("MATCH (`search`) AGAINST ('$search*' IN BOOLEAN MODE)");
-            // $query = $query->where('first_name','LIKE','%'.$search);
-            // $query = $query->orWhere('last_name','LIKE','%'.$search.'%');
-            // $query = $query->whereRaw("CONCAT(first_name,' ',last_name) LIKE '%".$search."%' ");
-            $query->whereHas('functionalArea', function ($query) use ($search) {
-                $query->where('functional_area', 'LIKE', '%'.$search.'%');
+           if ($search != '') {
+            $query->whereHas('profileSkills', function($sq) use ($search) {
+                $sq->join('job_skills', 'profile_skills.job_skill_id', '=', 'job_skills.job_skill_id')
+                   ->where('job_skills.job_skill', 'like', "%$search%");
             });
         }
+        }
         if (isset($industry_ids[0])) {
-            
+
             $query->whereIn('users.industry_id', $industry_ids);
         }
         if (isset($functional_area_ids[0])) {
@@ -144,7 +202,7 @@ trait FetchJobSeekers
         if (isset($job_skill_ids[0])) {
             $query ->whereHas('profileSkills', function($query) use ($job_skill_ids) {
                 $query->whereIn('job_skill_id', $job_skill_ids);
-         });
+            });
         }
         if (isset($career_level_ids[0])) {
             $query->whereIn('users.career_level_id', $career_level_ids);
@@ -170,7 +228,6 @@ trait FetchJobSeekers
         // echo("<script>console.log('PHP: " . json_encode($query) . "');</script>");
         return $query;
     }
-
     public function fetchSkillIdsArray($jobSeekerIdsArray = array())
     {
         $query = ProfileSkill::select('job_skill_id');

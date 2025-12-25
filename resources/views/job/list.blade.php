@@ -16,32 +16,32 @@
                 <form action="{{route('job.list')}}" method="get" id="search-job-form">
                     <div class="searchform row custom_top_margin_second_header">
                         <div class="col-lg-4 pl-lg-0">
-                            <input type="text" name="search" value="{{Request::get('search', '')}}" class="form-control find_job typeahead typeahead_job" placeholder="{{__('Enter Skills, job title or Location')}}" id="job_page_typehead" />
+                            <input type="text" name="search" value="{{Request::get('search', '')}}" class="form-control find_job typeahead typeahead_job" placeholder="{{__('Enter Skills')}}" id="job_page_typehead" />
                         </div>
 
                         <div class="col-lg-2 pl-lg-0">
                             <input type="text" name="job_title_filter" id="job_title_filter" value="{{Request::get('job_title_filter', '')}}" class="form-control" placeholder="{{__('Job Title')}}" autocomplete="off" />
                             <div id="job_title_list" style="position: absolute; z-index: 999; width: 100%; background: #fff; border: 1px solid #ccc; display: none;"></div>
                         </div>
-{{--                        <div class="col-lg-3 pl-lg-0">--}}
-{{--                        <select name="country_id[]" class="form-control" style="background-color: #0096ff">--}}
-{{--                            <option value="">Select Country</option>--}}
-{{--                            @php--}}
-{{--                                $countries = App\Country::whereIn('country_id', $countryIdsArray)--}}
-{{--                                    ->lang()--}}
-{{--                                    ->active()--}}
-{{--                                    ->orderBy('country') // Order by the 'country' column--}}
-{{--                                    ->get();--}}
-{{--                            @endphp--}}
-{{--                            @foreach ($countries as $country)--}}
-{{--                                @php--}}
-{{--                                      $selected = (in_array($country->country_id, Request::get('country_id', array()))) ? 'selected' : '';--}}
-{{--                                @endphp--}}
-{{--                                <option value="{{ $country->country_id  }}" {{ $selected }}>{{ $country->country  }}</option>--}}
-{{--                            @endforeach--}}
-{{--                        </select>--}}
-{{--                    </div>--}}
-                    <div class="col-lg-2 pl-lg-0">
+<div class="col-lg-3 pl-lg-0">
+    <select name="country_id[]" class="form-control" style="background-color: #0096ff">
+        <option value="">Select Country</option>
+        @php
+            $countries = App\Country::whereIn('country_id', $countryIdsArray)
+                ->lang()
+                ->active()
+                ->orderBy('country')
+                ->get();
+        @endphp
+        @foreach ($countries as $country)
+            @php
+                $selected = (in_array($country->country_id, Request::get('country_id', array()))) ? 'selected' : '';
+            @endphp
+            <option value="{{ $country->country_id }}" {{ $selected }}>{{ $country->country }}</option>
+        @endforeach
+    </select>
+</div>
+                    {{-- <div class="col-lg-2 pl-lg-0">
                         <select name="job_experience_id[]" class="form-control find_job" style="background-color: #0096ff">
                             <option value="">Experience</option>
                             @php
@@ -59,7 +59,7 @@
                                 <option value="{{ $jobExperience->job_experience_id  }}" {{ $selected }}>{{ $jobExperience->job_experience  }}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </div> --}}
                         {{-- <div class="col-lg-1 pl-lg-0">
                             <button type="button" class="btn" onclick="job_advance_filter()">
                                 <i class="fa fa-filter" aria-hidden="true"></i>
