@@ -12,7 +12,7 @@
                 <form action="{{route('job.seeker.list')}}" method="get">
                     <div class="searchform row custom_top_margin_second_header">
                         <div class="col-lg-9">
-                            <input type="text" name="search" id="functional_find" value="{{Request::get('search', '')}}" class="form-control" placeholder="{{__('Search Role...')}}" />
+                            <input type="text" name="search" id="functional_find" value="{{Request::get('search', '')}}" class="form-control" placeholder="{{__('Search Functional Area')}}" />
                         </div>
                         <div class="col-lg-3">
                             <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i> {{__('Search')}}</button>
