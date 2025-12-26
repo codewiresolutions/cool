@@ -228,13 +228,19 @@ class JobController extends Controller
         $job_skill_ids = (array) $request->query('job_skill_id', array());
 
         if (!empty($search)) {
-            $skillIds = \App\JobSkill::where('job_skill', 'like', $search . '%')
+            $skillIds = \App\JobSkill::where('job_skill', 'like', '%' . $search . '%')
                 ->pluck('job_skill_id')
                 ->toArray();
             if (!empty($skillIds)) {
                 $job_skill_ids = array_unique(array_merge($job_skill_ids, $skillIds));
+            } else {
+                // If no matching skills are found, we pass a dummy ID to return no results,
+                // otherwise it might return all jobs if the array is empty.
+                $job_skill_ids = [0];
             }
+            $search = '';
         }
+
 
         $functional_area_ids = (array) $request->query('functional_area_id', array());
 
