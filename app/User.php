@@ -48,7 +48,7 @@ class User extends Authenticatable
 
     protected $fillable = [
 
-        'name', 'email', 'password',
+        'name', 'email', 'password', // Add 'notice_period'
 
     ];
 

@@ -118,6 +118,7 @@ class UserController extends Controller
 
     public function updateMyProfile(UserFrontFormRequest $request)
     {
+    
         $user = User::findOrFail(Auth::user()->id);
 
         DB::beginTransaction();
@@ -186,7 +187,8 @@ class UserController extends Controller
             $user->current_salary = $request->input('current_salary');
             $user->expected_salary = $request->input('expected_salary');
             $user->salary_currency = $request->input('salary_currency');
-            $user->notice_period = $request->input('notice_period');
+            $user->notice_period = $request->input('notice_period'); // Add this line
+           
             $user->video_link = $request->video_link;
             $user->street_address = $request->input('street_address');
             $user->is_subscribed = $request->input('is_subscribed', 0);
