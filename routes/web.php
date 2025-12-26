@@ -66,6 +66,9 @@ Route::post('/account/change-password', [App\Http\Controllers\UserController::cl
 
 Route::get('/', 'IndexController@index')->name('index');
 
+
+Route::resource('resources', ResourceController::class);
+
 Route::get('/check-time', 'IndexController@checkTime')->name('check-time');
 
 Route::post('set-locale', 'IndexController@setLocale')->name('set.locale');

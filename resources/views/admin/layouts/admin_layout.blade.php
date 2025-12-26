@@ -27,7 +27,8 @@
         <meta content="" name="author" />
 
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
-
+<!-- Include SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
 
         <link href="{{ asset('/') }}admin_assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />

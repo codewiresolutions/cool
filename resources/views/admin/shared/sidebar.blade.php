@@ -91,9 +91,17 @@
         @include('admin/shared/side_bars/manage_resume')   
         
         <li class="heading">
-            <h3 class="uppercase">Manage</h3>
+            <h3 class="uppercase">Manage  </h3>
         </li>		 
         @include('admin/shared/side_bars/site_setting')   
+
+        
+        <li class="heading">
+            <h3 class="uppercase">Manage Counter</h3>
+        </li>	
+
+        @include('admin/shared/side_bars/counter')
+
 		@endif
 		
 		
